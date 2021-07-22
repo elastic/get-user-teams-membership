@@ -46,7 +46,8 @@ async function run() {
                 "userLogins": [username],
                 "username": username
             })
-            console.log(`Data: ${data}`)
+            var dataJson = JSON.stringify(data, null, 2)
+            console.log(`Data: ${dataJson}`)
             teams = teams.concat(data.organization.teams.nodes.map((val) => {
                 return val.name
             }))
