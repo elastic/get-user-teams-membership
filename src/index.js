@@ -46,8 +46,7 @@ async function run() {
                 "userLogins": [username],
                 "username": username
             })
-            var dataJson = JSON.stringify(data, null, 2)
-            console.log(`Data: ${dataJson}`)
+            
             teams = teams.concat(data.organization.teams.nodes.map((val) => {
                 return val.name
             }))
@@ -58,7 +57,6 @@ async function run() {
         let isTeamMember = teams.some((teamName) => {
             return team.toLowerCase() === teamName.toLowerCase()
         })
-        console.log(`${username} belongs to the following teams in the org ${organization}: ${teams}`)
 
         core.setOutput("teams", teams)
         core.setOutput("isTeamMember", isTeamMember)
