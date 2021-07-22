@@ -57,11 +57,12 @@ async function run() {
         let isTeamMember = teams.some((teamName) => {
             return team.toLowerCase() === teamName.toLowerCase()
         })
+        console.log(`${username} belongs to the following teams in the org ${organization}: ${teams}`)
 
         core.setOutput("teams", teams)
         core.setOutput("isTeamMember", isTeamMember)
 
-        console.log(`Use ${username} is member of ${organization}/${team}: ${isTeamMember}`)
+        console.log(`${username} is member of ${organization}/${team}: ${isTeamMember}`)
     } catch (error) {
         console.log(error)
         core.setFailed(error.message)
