@@ -61,6 +61,7 @@ async function run() {
         core.setOutput("teams", teams)
         core.setOutput("isTeamMember", isTeamMember)
 
+        console.log(`Use ${username} is member of ${organization}/${team}: ${isTeamMember}`)
     } catch (error) {
         console.log(error)
         core.setFailed(error.message)
