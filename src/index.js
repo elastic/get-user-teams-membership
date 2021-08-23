@@ -1,5 +1,11 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
+const parser = require('action-input-parser')
+const usernamesToExcludeOptions = {
+    key: 'usernamesToExclude',
+    type: 'array',
+    default: []
+}
 
 run()
 
@@ -12,6 +18,16 @@ async function run() {
         const organization = core.getInput("organization") || context.repo.owner
         const username = core.getInput("username")
         const team = core.getInput("team")
+        const usernamesToExclude = parser.getInput(usernamesToExcludeOptions)
+
+        if(usernamesToExclude.includes(username)) {
+            console.log(`${username} is excluded from team member check. Setting isExcluded to false`)
+            core.setOutput("isExcluded", true)
+            core.setOutput("isTeamMember", false)
+            return
+        } else {
+            core.setOutput("isExcluded", false)
+        }
 
         console.log(`Will check if ${username} belongs to ${team}`)
         

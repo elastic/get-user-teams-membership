@@ -1,6 +1,6 @@
 {
   "name": "get-user-teams-membership",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "GitHub Action to get a list a user teams membership",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "npx ncc build src/index.js -m -o dist"
   },
   "keywords": [],
-  "author": "Tiago Pascoal",
+  "author": "Alexander Wert",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "action-input-parser": "^1.2.14"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.24.0"
