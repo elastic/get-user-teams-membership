@@ -12,8 +12,8 @@ run()
 async function run() {
 
     try {
-
-        const api = github.getOctokit(core.getInput("GITHUB_TOKEN", { required: true }), {})
+        const ghToken = core.getInput("GITHUB_TOKEN")
+        const api = github.getOctokit(ghToken)
 
         const organization = core.getInput("organization") || context.repo.owner
         const username = core.getInput("username")
@@ -31,7 +31,7 @@ async function run() {
 
         console.log(`Will check if ${username} belongs to ${team}`)
         
-        let data = api.rest.teams.getMembershipForUserInOrg({
+        let data = await api.rest.teams.getMembershipForUserInOrg({
               org: organization,
               team_slug: team,
               username: username,
@@ -44,6 +44,7 @@ async function run() {
         console.log(`${username} is member of ${organization}/${team}: ${isTeamMember}`)
     } catch (error) {
         console.log(error)
+        core.setOutput("isTeamMember", false)
         core.setFailed(error.message)
     }
 }

@@ -12,6 +12,10 @@ inputs:
     description: 'If you specify a team name it will output if the user is a member of that team (case insensitive)'
     required: false
     default: ''
+  usernamesToExclude:
+    description: 'The usernames to exclude from testing.'
+    required: false
+    default: ''
   GITHUB_TOKEN:
     description: 'GITHUB_TOKEN'
     required: true
@@ -21,6 +25,8 @@ outputs:
     description: 'The list of teams the user belongs (array)'
   isTeamMember:
     description: 'Predicate to indicate if user belongs to team'
+  isExcluded:
+    description: 'True if has been excluded from testing'
 runs:
   using: 'node12'
   main: 'dist/index.js'
