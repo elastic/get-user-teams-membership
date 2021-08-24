@@ -31,13 +31,11 @@ async function run() {
 
         console.log(`Will check if ${username} belongs to ${team}`)
         
-        let data = await api.rest.teams.getMembershipForUserInOrg({
+        const {data: data} = await api.rest.teams.getMembershipForUserInOrg({
               org: organization,
               team_slug: team,
               username: username,
             });
-        const dataStr = JSON.stringify(data)
-        console.log(`##data: ${dataStr}`)
         
         let isTeamMember = data.role && data.state === 'active';
 
