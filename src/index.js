@@ -36,6 +36,8 @@ async function run() {
               team_slug: team,
               username: username,
             });
+        const dataStr = JSON.stringify(data)
+        console.log(`##data: ${dataStr}`)
         
         let isTeamMember = data.role && data.state === 'active';
 
