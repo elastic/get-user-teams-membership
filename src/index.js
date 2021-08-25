@@ -23,7 +23,6 @@ async function run() {
         if(usernamesToExclude.includes(username)) {
             console.log(`${username} is excluded from team member check. Setting isExcluded to false`)
             core.setOutput("isExcluded", true)
-            core.setOutput("isTeamMember", false)
             return
         } else {
             core.setOutput("isExcluded", false)
@@ -31,11 +30,16 @@ async function run() {
 
         console.log(`Will check if ${username} belongs to ${team}`)
         
-        const {data: data} = await api.rest.teams.getMembershipForUserInOrg({
-              org: organization,
-              team_slug: team,
-              username: username,
-            });
+        try {
+            const {data: data} = await api.rest.teams.getMembershipForUserInOrg({
+                org: organization,
+                team_slug: team,
+                username: username,
+                });
+        } catch (restError) {
+            const errorObj = JSON.stringify(restError)
+            console.log(`RestError: ${errorObj} `)
+        }
         
         let isTeamMember = data.role && data.state === 'active';
 
