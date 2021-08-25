@@ -29,20 +29,22 @@ async function run() {
         }
 
         console.log(`Will check if ${username} belongs to ${team}`)
-        
+        let isTeamMember = false
         try {
             const {data: data} = await api.rest.teams.getMembershipForUserInOrg({
                 org: organization,
                 team_slug: team,
                 username: username,
                 });
+            isTeamMember = data.role && data.state === 'active';
         } catch (restError) {
-            const errorObj = JSON.stringify(restError)
-            console.log(`RestError: ${errorObj} `)
+            if(restError.status === 404){
+                isTeamMember = false
+            } else {
+                throw restError
+            }
         }
         
-        let isTeamMember = data.role && data.state === 'active';
-
         core.setOutput("isTeamMember", isTeamMember)
 
         console.log(`${username} is member of ${organization}/${team}: ${isTeamMember}`)
